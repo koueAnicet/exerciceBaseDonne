@@ -8,3 +8,4 @@
 # d2_hash = d.hexdigest()
 # print(d == d2) # returns False
 # print(d_hash == d2_hash) # returns True
+ #encodage

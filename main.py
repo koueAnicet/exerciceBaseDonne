@@ -102,6 +102,8 @@ def inscription():
         #---------ajout dans la base de donnees-----
         conn.commit()
         conn.close()
+
+        
         #--------fermer une frame------
         frame.pack_forget()
         #callable(fenetre) #appeler dand sla meme fonction
@@ -119,7 +121,28 @@ def inscription():
         entryPassWordConnexion=Entry(frame1, width=50, borderwidth=4)
         entryPassWordConnexion.pack()
         
-        
+        if entryPassWordConnexion.get() and entryEmailConnexion.get():
+            
+            #encodage
+            hash_pwd_connexion = entryPassWordConnexion.get().encode()
+            # instancier l'objet sha3_256 
+            donnesConnexion= hashlib.sha3_256(hash_pwd_connexion)
+
+            #impression(hachage) 
+            hachees = donnesConnexion.hexdigest()
+            d={"email": entryEmailConnexion.get(), "mdp": hachees}
+            #--------------connexion a base de donne--------------------
+            conn = sqlite3.connect('database.db')
+            #designer le cursor "c"
+            c =conn.cursor()
+
+            c.execute("SELECT  email,mdp FROM inscription WHERE email=:email AND mdp=:mdp ",d)
+
+            donnee1,donnee2=c.fetchall()
+            if donnee1 == entryEmailConnexion.get() and donnee2 ==hachees:
+                messagebox.showinfo('info',"vous etes connecté!")
+                
+
         entryEmailConnexion.delete(0, END)
         entryPassWordConnexion.delete(0, END)
         Button(frame1, text="Se connecter", width=30,).pack(pady= 10,ipady=3)
