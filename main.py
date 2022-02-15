@@ -13,7 +13,7 @@ regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 
 fenetre= Tk()
 fenetre.title("Interface(Inscription/Connnexion)")
-fenetre.configure(bg='red' )
+fenetre.configure(bg='light green' )
 
 #execution des  fonctions des boutons 
 def inscription():
@@ -108,7 +108,7 @@ def inscription():
             #--------fermer une frame------
             frame.pack_forget()
             
-        else:  
+        elif(re.search(regex,entryEmail.get()==0)):  
             messagebox.showerror('error',"Email Invalide!")
             #frame.destroy()
    
@@ -120,7 +120,7 @@ def inscription():
     entryEmail.delete(0, END)
     entryPassWord.delete(0, END)
     entryConfirmPassWord.delete(0, END)
-    Button(frame, text="S'insrire", width=29, command=conditionInscription, font=("Italic",15, "bold"), bg="green", fg='white').pack(pady= 10,ipady=3)
+    Button(frame, text="S'insrire", width=29, command=conditionInscription, font=("Italic",15, "bold"), bg="green", fg='black').pack(pady= 10,ipady=3)
 
 
     bnn=Button(frame, text="Retour",).pack(pady= 5)
@@ -129,7 +129,7 @@ def inscription():
    
 def connexion():
     conne= Tk()
-    #frameFenetre.pack_forget()
+    #fenetre.pack_forget()
     
 
     
@@ -166,46 +166,48 @@ def connexion():
 
             c.execute("SELECT  email,mdp FROM inscription WHERE email=:email AND mdp=:mdp ",d)
 
-            donneeParcourie=c.fetchall()
-            print(donneeParcourie)
+            donneeParcourie =c.fetchall()
             
-            if entryEmailConnexion.get() in donneeParcourie and hachees in donneeParcourie:
-                print('ok')
-                messagebox.showinfo('info',"vous etes connecté!")
+            for i in donneeParcourie:
+                if entryEmailConnexion.get() in i and hachees in i:
+                    messagebox.showinfo('info',"vous etes connecté!")
+                    break
             
                 
+            
+    
+               
 
     entryEmailConnexion.delete(0, END)
     entryPassWordConnexion.delete(0, END)
-    Button(frame1, text="Se connecter", width=30,font=("Italic",15, "bold"), bg="red", fg='white', command=conditonConnexion).pack(pady= 10,ipady=3)
+    Button(frame1, text="Se connecter", width=30,font=("Italic",15, "bold"), bg="red", fg='black', command=conditonConnexion).pack(pady= 10,ipady=3)
     Button(frame1, text="Retour", ).pack(pady= 5)
+    
     conne.mainloop()
 def detrui():
     
-    btn1=Button(frameFenetre ,text="Inscription", font=("Italic", 20, "bold"), bg="yellow", command=inscription)
+    btn1=Button(fenetre ,text="Inscription", font=("Italic", 20, "bold"), bg="yellow", command=inscription)
     btn1.grid(row=0 ,column=0, columnspan=1)
 
-    btn2=Button(frameFenetre, text="Connexion", font=("Italic", 20, "bold"), bg="yellow", command=connexion)
+    btn2=Button(fenetre, text="Connexion", font=("Italic", 20, "bold"), bg="yellow", command=connexion)
     btn2.grid(row=0 ,column=1, )
     
+def accueil():
+    acc =Tk()
+    acc.messagebox.showinfo("Bienvenue!")
+    acc.mainloop()
+# fenetre= Frame(fenetre, width=899, bg="red")
+# fenetre.grid()
 
-frameFenetre= Frame(fenetre, width=899, bg="red")
-frameFenetre.grid()
-
-btn1=Button(frameFenetre ,text="Inscription", font=("Italic", 20, "bold"), bg="yellow", command=inscription)
+btn1=Button(fenetre ,text="Inscription", font=("Italic", 20, "bold"), bg="yellow", command=inscription)
 btn1.grid(row=0 ,column=0)
 
-btn2=Button(frameFenetre, text="Connexion", font=("Italic", 20, "bold"), bg="yellow", command=connexion)
+btn2=Button(fenetre, text="Connexion", font=("Italic", 20, "bold"), bg="yellow", command=connexion)
 btn2.grid(row=0 ,column=1)
 
-img = ImageTk.PhotoImage(Image.open("large.png"))
-img_label=Label(frameFenetre,image= img, width=1000, height=500).grid(row=1, column=0, columnspan=2, padx=40 )
+img = ImageTk.PhotoImage(Image.open("screen-3.jpeg"))
+img_label=Label(fenetre,image= img, width=1900, height=1200).grid(row=1, column=0, columnspan=2, padx=40 )
 
-"""if btn1.bind():
-    inscription()
-    
-elif btn2.bind():
-    connexion()
-else:
-    pass"""
+
+
 fenetre.mainloop()
