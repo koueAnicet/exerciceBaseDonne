@@ -1,10 +1,9 @@
-from gc import callbacks
 import hashlib  # module d'harchage
 import re  # module de verification email
 import sqlite3
 from tkinter import *
 from tkinter import messagebox
-from turtle import bgcolor
+
 from PIL import ImageTk,Image #pour afficher les image
 
 #installation de environement virtuel:python3  -m venv venv et son activation source venv venv
