@@ -164,10 +164,13 @@ def connexion():
             
             #recuperer les element de la base db
             donneeParcourie =c.fetchall()
-
+            v=list("bienvenue->")+  donneeParcourie
+            str(v)
+            #et afficher le nom de la personne en message d'accueil
             valeur=StringVar()
-            valeur.set(donneeParcourie)
-            Label(  textvariable=valeur, fg="red", font=("Simple",25,"bold")).pack(pady=20)
+            valeur.set(v)
+            
+            Label( textvariable=valeur,text="fdv" ,fg="red", font=("Simple",25,"bold")).pack(pady=20)
 
             btn2.place_forget()
            
